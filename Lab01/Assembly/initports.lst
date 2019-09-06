@@ -1,0 +1,153 @@
+
+
+
+ARM Macro Assembler    Page 1 
+
+
+    1 00000000 40011004 
+                       GPIOC_CRH
+                               EQU              0x40011004
+    2 00000000 4001100C 
+                       GPIOC_ODR
+                               EQU              0x4001100C
+    3 00000000 40010C00 
+                       GPIOB_CRL
+                               EQU              0x40010C00
+    4 00000000 40010C04 
+                       GPIOB_CRH
+                               EQU              0x40010C04
+    5 00000000 40010C0C 
+                       GPIOB_ODR
+                               EQU              0x40010C0C
+    6 00000000 40021018 
+                       RCC_APB2ENR
+                               EQU              0x40021018
+    7 00000000                 AREA             ARMex, CODE, READONLY
+    8 00000000         initports
+                               PROC
+    9 00000000                 EXPORT           initports
+   10 00000000         
+   11 00000000 B500            push             {lr}        ;store link registe
+                                                            r on stack
+   12 00000002         ;; Enable the Port B peripheral clock
+   13 00000002 4E06            ldr              r6, =RCC_APB2ENR
+   14 00000004 F04F 0008       mov              r0, #0x08
+   15 00000008 6030            str              r0, [r6]
+   16 0000000A         
+   17 0000000A         ;; Set the config and mode bits for Port B bits 5-12 so 
+                       they will
+   18 0000000A         ;; be a push-pull output (up to 50 MHz) by setting bits 
+                       19-16
+   19 0000000A         ;; to '0011'.
+   20 0000000A 4E05            ldr              r6, =GPIOB_CRL
+   21 0000000C 4805            ldr              r0, =0x33300000 ;configure PB5-
+                                                            PB7 as outputs
+   22 0000000E 6030            str              r0, [r6]
+   23 00000010         
+   24 00000010 4E05            ldr              r6, =GPIOB_CRH
+   25 00000012 4806            ldr              r0, =0x00033333 ;configure PB8-
+                                                            PB12 as outputs
+   26 00000014 6030            str              r0, [r6]
+   27 00000016         
+   28 00000016 F85D EB04       pop              {lr}        ;get link value
+   29 0000001A 4770            bx               lr          ;return to calling 
+                                                            program
+   30 0000001C         
+   31 0000001C                 ENDP
+   32 0000001C                 END
+              40021018 
+              40010C00 
+              33300000 
+              40010C04 
+              00033333 
+Command Line: --debug --xref --diag_suppress=9931 --cpu=Cortex-M3 --apcs=interw
+ork --depend=.\initports.d -o.\initports.o -I.\RTE\_AsmTemplate -IC:\Users\MEad
+min\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\CMSIS\Core\Include -IC:\Users\MEadm
+
+
+
+ARM Macro Assembler    Page 2 
+
+
+in\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.3.0\Device\Include --predefine=
+"__EVAL SETA 1" --predefine="__UVISION_VERSION SETA 528" --predefine="_RTE_ SET
+A 1" --predefine="STM32F10X_MD_VL SETA 1" --list=.\initports.lst initports.s
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+ARMex 00000000
+
+Symbol: ARMex
+   Definitions
+      At line 7 in file initports.s
+   Uses
+      None
+Comment: ARMex unused
+initports 00000000
+
+Symbol: initports
+   Definitions
+      At line 8 in file initports.s
+   Uses
+      At line 9 in file initports.s
+Comment: initports used once
+2 symbols
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Absolute symbols
+
+GPIOB_CRH 40010C04
+
+Symbol: GPIOB_CRH
+   Definitions
+      At line 4 in file initports.s
+   Uses
+      At line 24 in file initports.s
+Comment: GPIOB_CRH used once
+GPIOB_CRL 40010C00
+
+Symbol: GPIOB_CRL
+   Definitions
+      At line 3 in file initports.s
+   Uses
+      At line 20 in file initports.s
+Comment: GPIOB_CRL used once
+GPIOB_ODR 40010C0C
+
+Symbol: GPIOB_ODR
+   Definitions
+      At line 5 in file initports.s
+   Uses
+      None
+Comment: GPIOB_ODR unused
+GPIOC_CRH 40011004
+
+Symbol: GPIOC_CRH
+   Definitions
+      At line 1 in file initports.s
+   Uses
+      None
+Comment: GPIOC_CRH unused
+GPIOC_ODR 4001100C
+
+Symbol: GPIOC_ODR
+   Definitions
+      At line 2 in file initports.s
+   Uses
+      None
+Comment: GPIOC_ODR unused
+RCC_APB2ENR 40021018
+
+Symbol: RCC_APB2ENR
+   Definitions
+      At line 6 in file initports.s
+   Uses
+      At line 13 in file initports.s
+Comment: RCC_APB2ENR used once
+6 symbols
+344 symbols in table

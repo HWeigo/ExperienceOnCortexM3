@@ -1,0 +1,31 @@
+;Equates
+var1	EQU 0x20000014
+
+           	AREA MyConst, DATA, READONLY	; allocates memory for initialized data
+
+;const_label	Your DCB, , DCW, DCD, etc. statements go here.
+
+			AREA MyData, DATA, READWRITE  ; allocates memory for uninitialized data
+
+;data_label	Your SPACE, etc. statements go here.
+	
+			AREA    ARMex, CODE, READONLY
+			ENTRY
+__main		PROC
+			EXPORT  __main
+			;IMPORT my_subroutine
+;------------------------------------------------------------------------------------
+;your code goes here
+			ldr R0, =var1
+			ldrb R1, [R0]
+			mov R2, R1
+			add R2, #0x25
+			strb R2, [R0]
+			ror R2, #4
+			
+			nop
+
+done    	b done
+		
+			ENDP
+			END

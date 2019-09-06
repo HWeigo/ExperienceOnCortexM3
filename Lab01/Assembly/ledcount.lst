@@ -1,0 +1,151 @@
+
+
+
+ARM Macro Assembler    Page 1 
+
+
+    1 00000000 40010C0C 
+                       GPIOB_ODR
+                               EQU              0x40010C0C
+    2 00000000 0009FFFF 
+                       LEDDELAY
+                               EQU              0x09FFFF
+    3 00000000 00000400 
+                       MAXVAL  EQU              1024
+    4 00000000                 AREA             ARMex, CODE, READONLY
+    5 00000000                 ENTRY
+    6 00000000         __main  PROC
+    7 00000000                 EXPORT           __main
+    8 00000000                 IMPORT           initports
+    9 00000000 F7FF FFFE       bl               initports
+   10 00000004 F04F 021F 
+                       top     mov              r2, #31     ; Load R2 with coun
+                                                            t starting value
+   11 00000008 4E05            ldr              r6, =GPIOB_ODR ; load r6 with P
+                                                            ort B output data r
+                                                            egister address
+   12 0000000A         loop
+   13 0000000A 6032            str              r2, [r6]    ; send current valu
+                                                            e of counter out Po
+                                                            rt B
+   14 0000000C 4905            ldr              r1, =LEDDELAY ; delay so we can
+                                                             see the count
+   15 0000000E         delay1
+   16 0000000E 3901            subs             r1, #1      ; subtract 1 from d
+                                                            elay value
+   17 00000010 BF00            nop                          ; do nothing
+   18 00000012 D1FC            bne              delay1      ; loop until you re
+                                                            ach zero
+   19 00000014         
+   20 00000014 F102 0280       add              r2,#128     ; increment count
+   21 00000018 F5B2 6F80       cmp              r2,#MAXVAL  ; compare counter t
+                                                            o maximum count
+   22 0000001C DCF2            bgt              top         ; if it's greater t
+                                                            han MAXVAL, you're 
+                                                            done, start over
+   23 0000001E E7F4            b                loop        ; else display next
+                                                             value
+   24 00000020                 ENDP
+   25 00000020                 END
+              40010C0C 
+              0009FFFF 
+Command Line: --debug --xref --diag_suppress=9931 --cpu=Cortex-M3 --apcs=interw
+ork --depend=.\ledcount.d -o.\ledcount.o -I.\RTE\_AsmTemplate -IC:\Users\MEadmi
+n\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\CMSIS\Core\Include -IC:\Users\MEadmin
+\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.3.0\Device\Include --predefine="_
+_EVAL SETA 1" --predefine="__UVISION_VERSION SETA 528" --predefine="_RTE_ SETA 
+1" --predefine="STM32F10X_MD_VL SETA 1" --list=.\ledcount.lst LEDCount.s
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+ARMex 00000000
+
+Symbol: ARMex
+   Definitions
+      At line 4 in file LEDCount.s
+   Uses
+      None
+Comment: ARMex unused
+__main 00000000
+
+Symbol: __main
+   Definitions
+      At line 6 in file LEDCount.s
+   Uses
+      At line 7 in file LEDCount.s
+Comment: __main used once
+delay1 0000000E
+
+Symbol: delay1
+   Definitions
+      At line 15 in file LEDCount.s
+   Uses
+      At line 18 in file LEDCount.s
+Comment: delay1 used once
+loop 0000000A
+
+Symbol: loop
+   Definitions
+      At line 12 in file LEDCount.s
+   Uses
+      At line 23 in file LEDCount.s
+Comment: loop used once
+top 00000004
+
+Symbol: top
+   Definitions
+      At line 10 in file LEDCount.s
+   Uses
+      At line 22 in file LEDCount.s
+Comment: top used once
+5 symbols
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Absolute symbols
+
+GPIOB_ODR 40010C0C
+
+Symbol: GPIOB_ODR
+   Definitions
+      At line 1 in file LEDCount.s
+   Uses
+      At line 11 in file LEDCount.s
+Comment: GPIOB_ODR used once
+LEDDELAY 0009FFFF
+
+Symbol: LEDDELAY
+   Definitions
+      At line 2 in file LEDCount.s
+   Uses
+      At line 14 in file LEDCount.s
+Comment: LEDDELAY used once
+MAXVAL 00000400
+
+Symbol: MAXVAL
+   Definitions
+      At line 3 in file LEDCount.s
+   Uses
+      At line 21 in file LEDCount.s
+Comment: MAXVAL used once
+3 symbols
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+External symbols
+
+initports 00000000
+
+Symbol: initports
+   Definitions
+      At line 8 in file LEDCount.s
+   Uses
+      At line 9 in file LEDCount.s
+Comment: initports used once
+1 symbol
+345 symbols in table

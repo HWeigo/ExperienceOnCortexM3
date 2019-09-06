@@ -1,0 +1,1 @@
+.\initports.o: initports.s
